@@ -1,0 +1,58 @@
+{
+  "name": "shop-be",
+  "version": "1.0.0",
+  "description": "Online shop",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node ./src/server.ts",
+    "dev": "nodemon",
+    "build": "tsc",
+    "test": "mocha -r ts-node/register src/tests/**/*.test.ts"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "dist",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "src"
+    ],
+    "exec": "npm start",
+    "ext": "ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anhtuanpro6420/shop-be.git"
+  },
+  "author": "Si",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anhtuanpro6420/shop-be/issues"
+  },
+  "homepage": "https://github.com/anhtuanpro6420/shop-be#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.3"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.21",
+    "@types/express": "^4.17.12",
+    "@types/mocha": "^8.2.3",
+    "@types/node": "^15.12.4",
+    "@typescript-eslint/eslint-plugin": "^4.28.0",
+    "@typescript-eslint/parser": "^4.28.0",
+    "chai": "^4.3.4",
+    "eslint": "^7.29.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-prettier": "^3.4.0",
+    "mocha": "^9.0.2",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.3.2",
+    "ts-node": "^10.1.0",
+    "typescript": "^4.3.4"
+  }
+}
