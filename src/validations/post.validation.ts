@@ -7,5 +7,31 @@ const createPostSchema = {
   }),
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export { createPostSchema };
+const getPostByIdSchema = {
+  params: Joi.object().keys({
+    postId: Joi.string().required(),
+  }),
+};
+
+const updatePostSchema = {
+  body: Joi.object().keys({
+    title: Joi.string(),
+    content: Joi.string(),
+  }),
+  params: Joi.object().keys({
+    postId: Joi.string().required(),
+  }),
+};
+
+const deletePostSchema = {
+  params: Joi.object().keys({
+    postId: Joi.string().required(),
+  }),
+};
+
+export {
+  createPostSchema,
+  getPostByIdSchema,
+  updatePostSchema,
+  deletePostSchema,
+};
