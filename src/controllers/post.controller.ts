@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 
 import postSvc from '../services/post.service';
 
-// eslint-disable-next-line import/prefer-default-export
 export const getPosts = async (
   req: Request,
   res: Response,

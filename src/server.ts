@@ -1,5 +1,5 @@
 import { config } from 'dotenv';
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import routes from './routes';
@@ -10,6 +10,7 @@ config();
 import './db/connection';
 
 const app = express();
+const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -24,7 +25,25 @@ app.use('/api', routes);
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
-const PORT = process.env.PORT || 4000;
+
+// Error Handler
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+  const error = { ...err };
+  if (!error.statusCode) {
+    error.statusCode = 500;
+  }
+  const { message } = error || {};
+  console.error(error);
+  res.status(error.statusCode).send({
+    status: 'error',
+    message,
+  });
+});
+
+// 404 error handler
+app.use((req, res) => {
+  res.status(404).send({ error: 'Not found' });
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
