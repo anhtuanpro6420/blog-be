@@ -1,4 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
+import { IPagination } from '../interfaces/common.interface';
+import {
+  DEFAULT_FIRST_PAGE,
+  DEFAULT_LIMIT_PAGE,
+} from '../constants/common.constant';
 
 import postSvc from '../services/post.service';
 
@@ -7,9 +12,24 @@ export const getPosts = async (
   res: Response,
   next: NextFunction
 ) => {
+  const {
+    query: { page: pageReq, limit: limitReq },
+  } = req || {};
+
+  const page = Number(pageReq) || DEFAULT_FIRST_PAGE;
+  const limit = Number(limitReq) || DEFAULT_LIMIT_PAGE;
   try {
-    const posts = await postSvc.getPosts();
-    return res.status(200).json(posts);
+    const totalPosts = await postSvc.countPosts({});
+    const metadata: IPagination = {
+      page,
+      pages: Math.ceil(totalPosts / limit),
+      total: totalPosts,
+    };
+    const posts = await postSvc.getPosts({ page, limit });
+    return res.status(200).json({
+      data: posts,
+      metadata,
+    });
   } catch (error) {
     next(error);
   }

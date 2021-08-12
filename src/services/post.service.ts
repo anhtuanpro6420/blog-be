@@ -1,8 +1,20 @@
 import { IPost } from '../interfaces/post.interface';
 import Post from '../models/post.model';
+import { IQueryObj } from '../interfaces/common.interface';
 
-const getPosts = async () => {
-  const posts = await Post.find();
+const countPosts = async (filter: any) => {
+  const count = await Post.find(filter).count();
+  return count;
+};
+
+const getPosts = async (queryObj: IQueryObj) => {
+  const { page, limit } = queryObj || {};
+  const skip = limit * (page - 1) || 0;
+
+  const posts = await Post.find()
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limit);
   return posts;
 };
 
@@ -32,4 +44,5 @@ export default {
   createPost,
   updatePost,
   deletePost,
+  countPosts,
 };
