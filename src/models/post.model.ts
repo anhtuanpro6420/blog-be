@@ -12,6 +12,13 @@ const postSchema = new Schema(
       type: String,
       require: true,
     },
+    tags: [
+      {
+        type: mongoose.Types.ObjectId,
+        require: false,
+        ref: 'Post',
+      },
+    ],
   },
   {
     timestamps: true,
