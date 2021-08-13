@@ -12,6 +12,7 @@ const getPosts = async (queryObj: IQueryObj) => {
   const skip = limit * (page - 1) || 0;
 
   const posts = await Post.find()
+    .populate('tags', 'name')
     .sort({ createdAt: -1 })
     .skip(skip)
     .limit(limit);
@@ -19,7 +20,7 @@ const getPosts = async (queryObj: IQueryObj) => {
 };
 
 const getPostById = async (id: string) => {
-  const post = await Post.findById(id);
+  const post = await Post.findById(id).populate('tags', 'name');
   return post;
 };
 

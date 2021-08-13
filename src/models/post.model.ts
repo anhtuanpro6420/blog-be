@@ -16,7 +16,7 @@ const postSchema = new Schema(
       {
         type: mongoose.Types.ObjectId,
         require: false,
-        ref: 'Post',
+        ref: 'Tag',
       },
     ],
   },
