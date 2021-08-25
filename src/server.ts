@@ -2,6 +2,7 @@ import { config } from 'dotenv';
 import express, { Request, Response, NextFunction } from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
+import cors from 'cors';
 import routes from './routes';
 
 config();
@@ -12,6 +13,7 @@ import './db/connection';
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -21,7 +23,7 @@ if (process.env.NODE_ENV === 'prod') {
   app.use(morgan('dev'));
 }
 
-app.use('/api', routes);
+app.use('/api/v1', routes);
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
